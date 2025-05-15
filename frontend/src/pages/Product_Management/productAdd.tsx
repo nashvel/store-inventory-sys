@@ -120,8 +120,6 @@ const ProductAdd = () => {
                   required
                 >
                   <option value="">Select a category</option>
-                  <option value="Drinks">Drinks</option>
-                  <option value="Snacks">Snacks</option>
                   <option value="Electronics">Electronics</option>
                   <option value="Toys">Toys</option>
                   <option value="Health & Beauty">Health & Beauty</option>

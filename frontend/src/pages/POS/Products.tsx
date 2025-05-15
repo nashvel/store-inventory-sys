@@ -4,41 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import SideMenu from "../../layouts/sidemenu";
 import Checkout from "./Checkout";
 
-import virginImage from "../../assets/virgin.png";
-import cokeImage from "../../assets/coke.png";
-import cheetosImage from "../../assets/cheetos.png";
-import mountaindewImage from "../../assets/mountaindew.png";
-import pepsiImage from "../../assets/pepsi.png";
-import royalImage from "../../assets/royal.png";
-import spriteImage from "../../assets/sprite.png";
-import sunkistImage from "../../assets/Sunkist.png";
-
 const Pos = () => {
   const categories = ["All", "Electronics", "Furnitures", "Clothings", "Toys", "Health & Beauty"];
 
-  const productData = [
-    { name: "Coke", image: cokeImage, category: "Drinks" },
-    { name: "Virgin", image: virginImage, category: "Drinks" },
-    { name: "Cheetos", image: cheetosImage, category: "Snacks" },
-    { name: "Mountain Dew", image: mountaindewImage, category: "Drinks" },
-    { name: "Pepsi", image: pepsiImage, category: "Drinks" },
-    { name: "Royal", image: royalImage, category: "Drinks" },
-    { name: "Sprite", image: spriteImage, category: "Drinks" },
-    { name: "Sunkist", image: sunkistImage, category: "Drinks" },
-  ];
-
   const generateProducts = () => {
-    const baseProducts = productData.map((item, index) => ({
-      id: index + 1,
-      name: item.name,
-      image: item.image,
-      price: parseFloat((Math.random() * 10 + 1).toFixed(2)),
-      description: `Description for ${item.name}`,
-      category: item.category,
-    }));
-
     const moreProducts = [];
-    for (let i = baseProducts.length + 1; i <= 100; i++) {
+    for (let i = 1; i <= 100; i++) {
       const category = categories[Math.floor(Math.random() * (categories.length - 1)) + 1];
       const price = parseFloat((Math.random() * 10 + 1).toFixed(2));
       moreProducts.push({
@@ -51,7 +22,7 @@ const Pos = () => {
       });
     }
 
-    return [...baseProducts, ...moreProducts];
+    return moreProducts;
   };
 
   const allProducts = useMemo(() => generateProducts(), []);

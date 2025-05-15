@@ -13,25 +13,25 @@ const SideMenu = () => {
   ];
 
   const handleCartClick = () => {
-    navigate('/cart');  // Navigate to the cart page
+    navigate('/cart');  
   };
 
   const handleProfileClick = () => {
-    navigate('/profile');  // Navigate to the profile page
+    navigate('/profile');  
   };
 
   const handleLogout = () => {
-    // Clear the session or token (this is an example, adjust according to your auth method)
+
     localStorage.removeItem('userToken');
-    navigate('/login');  // Redirect to the login page
+    navigate('/login');  
   };
 
   return (
     <aside className="app-sidebar bg-gray-100 text-gray-800 w-70 h-screen fixed top-0 left-0 shadow-md z-50 border-r border-gray-200 font-medium flex flex-col justify-between">
 
-      {/* Top Section */}
+
       <div>
-        {/* Logo */}
+
         <div className="flex justify-center items-center py-6 mb-8">
           <img src={logo} alt="App Logo" className="w-32 h-auto" />
         </div>
@@ -53,7 +53,7 @@ const SideMenu = () => {
         </nav>
       </div>
 
-      {/* Bottom Icons */}
+
       <div className="flex justify-around items-center py-4 border-t border-gray-300">
         <button
           title="Cart"
