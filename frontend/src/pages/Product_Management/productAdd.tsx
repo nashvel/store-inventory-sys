@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import SideMenu from "../../layouts/sidemenu";
+import { useNavigate } from 'react-router-dom';
 
 interface ProductData {
   image: File | null;
   name: string;
   price: number;
-  description: string;
   category: string;
   stock: number;
 }
@@ -15,12 +15,12 @@ const ProductAdd = () => {
     image: null,
     name: '',
     price: 0,
-    description: '',
     category: '',
     stock: 0,
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -41,105 +41,142 @@ const ProductAdd = () => {
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
-      {/* Sidebar */}
       <SideMenu />
-
-      {/* Main Content */}
-      <main className="flex-1 flex justify-center ml-48 p-6 transition-all duration-300">
-        <form
-          onSubmit={handleSubmit}
-          className="w-250 bg-white p-6 rounded-2xl shadow-md space-y-4"
+      
+      <main className="flex-1 ml-48 p-4 transition-all duration-300">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center text-gray-600 hover:text-blue-600 transition-colors"
         >
-          <h2 className="text-2xl font-semibold text-center text-gray-800">Add New Product</h2>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Product Name</label>
-            <input
-              type="text"
-              value={productData.name}
-              onChange={(e) => setProductData({ ...productData, name: e.target.value })}
-              className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g. Coca-Cola"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Price (₱)</label>
-            <input
-              type="number"
-              value={productData.price}
-              onChange={(e) =>
-                setProductData({ ...productData, price: parseFloat(e.target.value) })
-              }
-              className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g. 25.00"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Category</label>
-            <input
-              type="text"
-              value={productData.category}
-              onChange={(e) => setProductData({ ...productData, category: e.target.value })}
-              className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g. Beverage"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Stock</label>
-            <input
-              type="number"
-              value={productData.stock}
-              onChange={(e) =>
-                setProductData({ ...productData, stock: parseInt(e.target.value) })
-              }
-              className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g. 100"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              value={productData.description}
-              onChange={(e) => setProductData({ ...productData, description: e.target.value })}
-              className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g. 500ml bottled soda"
-              rows={3}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Product Image</label>
-            <input
-              type="file"
-              onChange={handleImageChange}
-              accept="image/*"
-              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:rounded-xl file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="mt-3 w-32 h-32 object-cover rounded-xl border"
-              />
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+          <svg 
+            className="w-5 h-5 mr-2" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
           >
-            Submit Product
-          </button>
-        </form>
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to Products
+        </button>
+
+        <div className="max-w-lg mx-auto">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white p-4 rounded-lg shadow space-y-4"
+          >
+            <h2 className="text-xl font-bold text-center text-gray-800 mb-4">Add New Product</h2>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                <input
+                  type="text"
+                  value={productData.name}
+                  onChange={(e) => setProductData({ ...productData, name: e.target.value })}
+                  className="w-full px-3 py-1.5 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                  placeholder="e.g. Coca-Cola"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Price (₱)</label>
+                <input
+                  type="number"
+                  value={productData.price}
+                  onChange={(e) => setProductData({ ...productData, price: parseFloat(e.target.value) })}
+                  className="w-full px-3 py-1.5 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                  placeholder="25.00"
+                  min="0"
+                  step="0.01"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+                <input
+                  type="number"
+                  value={productData.stock}
+                  onChange={(e) => setProductData({ ...productData, stock: parseInt(e.target.value) })}
+                  className="w-full px-3 py-1.5 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                  placeholder="100"
+                  min="0"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select
+                  value={productData.category}
+                  onChange={(e) => setProductData({ ...productData, category: e.target.value })}
+                  className="w-full px-3 py-1.5 border rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                  required
+                >
+                  <option value="">Select a category</option>
+                  <option value="Drinks">Drinks</option>
+                  <option value="Snacks">Snacks</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Toys">Toys</option>
+                  <option value="Health & Beauty">Health & Beauty</option>
+                  <option value="Furnitures">Furnitures</option>
+                  <option value="Clothing">Clothing</option>
+                </select>
+              </div>
+
+              <div className="col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+                <div className="border border-dashed border-gray-300 rounded-lg p-3 text-center">
+                  <input
+                    type="file"
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <label 
+                    htmlFor="image-upload"
+                    className="cursor-pointer flex flex-col items-center space-y-1"
+                  >
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span className="text-xs text-gray-500">Click to upload image</span>
+                  </label>
+                  {imagePreview && (
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="mt-2 max-w-full h-24 object-contain rounded-lg mx-auto"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex space-x-3 pt-3">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="flex-1 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg hover:bg-blue-700 transition text-sm"
+              >
+                Add Product
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
     </div>
   );

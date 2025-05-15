@@ -10,7 +10,7 @@ function LoginPage() {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    document.title = "Login | MotoPOS";
+    document.title = "Login ";
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
