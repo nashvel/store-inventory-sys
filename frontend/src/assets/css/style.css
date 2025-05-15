@@ -85866,9 +85866,7 @@ h6 {
 .bg-inputborder {
   background-color: rgb(var(--input-border));
 }
-.bg-light {
-  background-color: rgb(var(--light));
-}
+
 .bg-light\/10 {
   background-color: rgb(var(--light) / 0.1);
 }

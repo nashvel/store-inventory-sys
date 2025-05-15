@@ -15,7 +15,7 @@ import ProductAdd from './pages/Product_Management/productAdd';
 import Dashboard from './pages/Dashboard/dashboard';
 import Inventory from './pages/Inventory_Management/Inventory';
 import Sales from './pages/SalesHistory/inventory';
-
+import ResetPassword from './layouts/Resetpassword';
 
 
 
@@ -37,6 +37,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/Inventory" element={<Inventory />} />
 
         <Route path="/Sales" element={<Sales />} />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
 
 
 
