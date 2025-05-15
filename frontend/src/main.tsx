@@ -38,7 +38,7 @@ createRoot(document.getElementById('root')!).render(
 
         <Route path="/Sales" element={<Sales />} />
 
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ResetPassword />} />
 
 
 
