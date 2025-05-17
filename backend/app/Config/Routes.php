@@ -24,3 +24,11 @@ $routes->post('login', 'AuthController::login');
 //product
 $routes->post('api/products', 'ProductController::create');
 $routes->get('api/products', 'ProductController::index');
+
+// Sales routes
+$routes->post('api/checkout', 'SaleController::checkout');
+$routes->get('api/sales/daily', 'SaleController::getDailySales');
+$routes->get('api/sales/weekly', 'SaleController::getWeeklySales');
+$routes->get('api/sales/monthly', 'SaleController::getMonthlySales');
+$routes->get('api/sales/(:num)', 'SaleController::getSaleDetails/$1');
+$routes->get('api/sales/dashboard', 'SaleController::getDashboardData');

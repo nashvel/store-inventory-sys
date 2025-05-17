@@ -208,13 +208,13 @@ const Pos = () => {
               )}
               <p>{selectedProduct.description}</p>
               <div className="modal-controls">
-                <span>₱{selectedProduct.price.toFixed(2)}</span>
+                <span>₱{Number(selectedProduct.price).toFixed(2)}</span>
                 <input
                   ref={quantityInputRef}
                   type="number"
                   value={quantity}
                   min={1}
-                  onChange={e => setQuantity(parseInt(e.target.value))}
+                  onChange={e => setQuantity(parseInt(e.target.value) || 1)}
                 />
                 <button onClick={addToCart}>Add to Cart</button>
               </div>
