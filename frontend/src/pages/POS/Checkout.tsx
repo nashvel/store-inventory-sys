@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
   import { motion, AnimatePresence } from "framer-motion";
   import toast from 'react-hot-toast';
 
@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from "react";
     id: number;
     name: string;
     price: number;
+    category: string;
     quantity: number;
   }
 
@@ -16,16 +17,7 @@ import React, { useEffect, useRef } from "react";
     clearCart: () => void;
   }
 
-  const Checkout: React.FC<CheckoutProps> = ({ cart, updateCartQuantity, removeFromCart, clearCart }) => {
-    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const cartRef = useRef<HTMLDivElement>(null);
-
-    // Scroll to top of cart container when items change
-    useEffect(() => {
-      if (cartRef.current) {
-        cartRef.current.scrollTop = 0;
-      }
-    }, [cart]);
+  const Checkout: React.FC<CheckoutProps> = ({ cart, updateCartQuantity, removeFromCart, clearCart }) => {    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     const handleCheckout = () => {
       if (cart.length === 0) {
@@ -66,24 +58,12 @@ import React, { useEffect, useRef } from "react";
     };
 
     return (
-      <div ref={cartRef} style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        padding: "24px",
-        borderRadius: "16px",
-        boxShadow: "0 6px 24px rgba(0,0,0,0.08)",
-        position: "sticky",
-        top: "20px",
-        maxHeight: "90vh",
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column"
-      }}>
+            <div style={{        flex: 1,        backgroundColor: "#fff",        padding: "24px",        borderRadius: "16px",        boxShadow: "0 6px 24px rgba(0,0,0,0.08)",        position: "sticky",        top: "20px",        height: "calc(100vh - 40px)",        display: "flex",        flexDirection: "column",        gap: "20px"      }}>
         <h2 style={{ fontSize: "24px", marginBottom: "20px", color: "#2c3e50", display: "flex", alignItems: "center", gap: "8px" }}>
           <span>Cart</span>
         </h2>
 
-        <div style={{ flex: 1, marginBottom: "20px" }}>
+        <div style={{           flex: 1,          overflowY: "auto",          display: "flex",          flexDirection: "column",          minHeight: "200px",          gap: "16px"        }}>
           <AnimatePresence>
             {cart.length === 0 ? (
               <motion.div

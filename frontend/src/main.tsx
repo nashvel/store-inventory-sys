@@ -27,7 +27,7 @@ createRoot(document.getElementById('root')!).render(
       toastOptions={{
         duration: 3000,
         style: {
-          background: '#333',
+          background: 'linear-gradient(to right, #4caf50, #81c784)',
           color: '#fff',
           padding: '16px',
           borderRadius: '10px',

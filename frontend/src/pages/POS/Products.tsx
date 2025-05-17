@@ -19,6 +19,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  category: string;
 }
 
 const Pos = () => {
@@ -54,10 +55,10 @@ const Pos = () => {
 
   const addToCart = () => {
     if (!selectedProduct || quantity < 1) return;
-    const existing = cart.find(item => item.id === selectedProduct.id);
+    const existing = cart.find(item => item.name === selectedProduct.name && item.price === selectedProduct.price);
     if (existing) {
       setCart(cart.map(item =>
-        item.id === selectedProduct.id
+        item.id === existing.id
           ? { ...item, quantity: item.quantity + quantity }
           : item
       ));
@@ -65,10 +66,11 @@ const Pos = () => {
       setCart([
         ...cart,
         {
-          id: selectedProduct.id,
+          id: Date.now(),
           name: selectedProduct.name,
           price: selectedProduct.price,
           quantity,
+          category: selectedProduct.category,
         },
       ]);
     }
@@ -143,10 +145,10 @@ const Pos = () => {
                       className="add-btn"
                       onClick={(e) => {
                         e.stopPropagation();
-                        const existing = cart.find(item => item.id === product.id);
+                        const existing = cart.find(item => item.name === product.name && item.price === product.price);
                         if (existing) {
                           setCart(cart.map(item =>
-                            item.id === product.id
+                            item.id === existing.id
                               ? { ...item, quantity: item.quantity + 1 }
                               : item
                           ));
@@ -154,10 +156,11 @@ const Pos = () => {
                           setCart([
                             ...cart,
                             {
-                              id: product.id,
+                              id: Date.now(),
                               name: product.name,
                               price: product.price,
                               quantity: 1,
+                              category: product.category,
                             },
                           ]);
                         }
