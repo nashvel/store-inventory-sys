@@ -26,17 +26,17 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/ProductList" element={<ProductList />} />
-        <Route path="/Productadd" element={<ProductAdd />} />
+        <Route path="/inventory" element={<ProductList />} />
+        <Route path="/productadd" element={<ProductAdd />} />
 
 
-        <Route path="/pos" element={<Pos />} />
+        <Route path="/products" element={<Pos />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/Inventory" element={<Inventory />} />
+        <Route path="/productlist" element={<Inventory />} />
 
-        <Route path="/Sales" element={<Sales />} />
+        <Route path="/sales" element={<Sales />} />
 
         <Route path="/forgot-password" element={<ResetPassword />} />
 

@@ -1,95 +1,27 @@
 import { Link } from "react-router-dom";
 import SideMenu from "../../layouts/sidemenu";
-import cokeImage from "../../assets/coke.png";
-import virginImage from "../../assets/virgin.png";
-import pepsiImage from "../../assets/pepsi.png";
-import royalImage from "../../assets/royal.png";
-import spriteImage from "../../assets/sprite.png";
-import waterImage from "../../assets/water.png";
-import sardinesImage from "../../assets/sardines.png";
-import mountainedewImage from "../../assets/mountaindew.png";
 import { useState, useEffect } from "react";
 
+// Define TypeScript interface for products
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  image: string | null;
+}
+
 function ProductList() {
-  const [fetchedProducts, setFetchedProducts] = useState([]);
+  const [fetchedProducts, setFetchedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost/your-ci-project/index.php/api/products")
+    fetch("http://localhost:8080/api/products")
       .then((res) => res.json())
-      .then((data) => setFetchedProducts(data))
+      .then((data: Product[]) => setFetchedProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  // Hardcoded products
-  const staticProducts = [
-    {
-      id: 1,
-      name: "Coca-Cola",
-      price: 20,
-      description: "Soft drink",
-      image: cokeImage,
-      isNew: true,
-    },
-    {
-      id: 2,
-      name: "Virgin",
-      price: 5,
-      description: "Soft Drinks",
-      image: virginImage,
-      isNew: true,
-    },
-    {
-      id: 3,
-      name: "Pepsi",
-      price: 25,
-      description: "Soft Drinks",
-      image: pepsiImage,
-      isNew: false,
-    },
-    {
-      id: 4,
-      name: "Royal",
-      price: 25,
-      description: "Soft Drinks",
-      image: royalImage,
-      isNew: false,
-    },
-    {
-      id: 5,
-      name: "Sprite",
-      price: 25,
-      description: "Soft Drinks",
-      image: spriteImage,
-      isNew: false,
-    },
-    {
-      id: 6,
-      name: "Water",
-      price: 20,
-      description: "Soft Drinks",
-      image: waterImage,
-      isNew: false,
-    },
-    {
-      id: 7,
-      name: "Sardines",
-      price: 20,
-      description: "Sardines",
-      image: sardinesImage,
-      isNew: false,
-    },
-    {
-      id: 8,
-      name: "Mountain Dew",
-      price: 20,
-      description: "Soft Drinks",
-      image: mountainedewImage,
-      isNew: false,
-    },
-  ];
-
-  // Combine static and fetched products
-  const products = [...staticProducts, ...fetchedProducts];
+  const products = fetchedProducts;
 
   return (
     <div className="main-content app-content">
@@ -126,7 +58,7 @@ function ProductList() {
           </div>
         </div>
 
-        {/* Conditionally render Product Grid */}
+        {/* Product Grid */}
         {products.length > 0 ? (
           <div className="grid grid-cols-12 gap-x-6 mt-6">
             {products.map((product) => (
@@ -135,12 +67,6 @@ function ProductList() {
                 className="xl:col-span-3 lg:col-span-4 sm:col-span-6 col-span-12"
               >
                 <div className="box card-style-2 shadow-xl relative">
-                  {product.isNew && (
-                    <div className="absolute top-2 left-2">
-                      <div className="badge bg-info text-white">New</div>
-                    </div>
-                  )}
-
                   <div className="card-img-top border-b border-dashed bg-light h-40 flex items-center justify-center">
                     {product.image ? (
                       <img
@@ -155,9 +81,9 @@ function ProductList() {
 
                   <div className="p-4">
                     <h5 className="font-semibold mb-1">{product.name}</h5>
-                    <p className="text-sm text-gray-500">{product.description}</p>
+                    <p className="text-sm text-gray-500">{product.category}</p>
                     <div className="mt-2 text-primary font-bold">
-                      ₱{product.price.toFixed(2)}
+                      ₱{Number(product.price).toFixed(2)}
                     </div>
                   </div>
                 </div>

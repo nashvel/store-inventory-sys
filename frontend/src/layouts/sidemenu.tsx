@@ -10,9 +10,9 @@ const SideMenu = () => {
 
   const navLinks = [
     { path: '/dashboard', label: 'Dashboard', icon: <BiBarChartAlt2 /> },
-    { path: '/pos', label: 'Products', icon: <BiBox /> },
-    { path: '/Productlist', label: 'Inventory', icon: <BiClipboard /> },
-    { path: '/Sales', label: 'Sales', icon: <BiMoney /> },
+    { path: '/products', label: 'Products', icon: <BiBox /> },
+    { path: '/inventory', label: 'Inventory', icon: <BiClipboard /> },
+    { path: '/sales', label: 'Sales', icon: <BiMoney /> },
   ];
 
   const handleLogout = () => {

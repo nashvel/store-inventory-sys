@@ -19,3 +19,8 @@ $routes->options('(:any)', function() {
 //admin
 $routes->post('register', 'AuthController::register');
 $routes->post('login', 'AuthController::login');
+
+
+//product
+$routes->post('api/products', 'ProductController::create');
+$routes->get('api/products', 'ProductController::index');

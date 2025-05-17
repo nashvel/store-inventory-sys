@@ -34,10 +34,52 @@ const ProductAdd = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Product Data:', productData);
+
+    let base64Image = null;
+
+    if (productData.image) {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        base64Image = reader.result;
+
+        const payload = {
+          user_id: 1, // Replace with actual logged-in user ID
+          name: productData.name,
+          price: productData.price,
+          stock: productData.stock,
+          category: productData.category,
+          image: base64Image,
+        };
+
+        try {
+          const response = await fetch('http://localhost:8080/api/products', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            alert('Product added successfully!');
+            navigate(-1);
+          } else {
+            alert('Failed: ' + JSON.stringify(data.errors || data.message));
+          }
+        } catch (error) {
+          alert('Error: ' + error);
+        }
+      };
+      reader.readAsDataURL(productData.image);
+    } else {
+      alert('Please select an image.');
+    }
   };
+
+
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
