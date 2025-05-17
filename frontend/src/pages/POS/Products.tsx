@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SideMenu from "../../layouts/sidemenu";
 import Checkout from "./Checkout";
 import "./Product.css";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
 interface Product {
   id: number;
@@ -93,57 +93,6 @@ const Pos = () => {
     setQuantity(1);
   };
 
-const productCard = (product: Product) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    whileHover={{ scale: 1.02 }}
-    key={product.id}
-    className="product-card"
-  >
-    <div className="product-image-container" onClick={() => setSelectedProduct(product)}>
-      {product.image ? (
-        <img src={product.image} alt={product.name} />
-      ) : (
-        <span className="no-image">No Image</span>
-      )}
-    </div>
-    <strong>{product.name}</strong>
-    <span>₱{Number(product.price).toFixed(2)}</span>
-
-    {/* ➕ Add to cart button */}
-    <button
-      className="add-btn"
-      onClick={(e) => {
-        e.stopPropagation(); // prevent opening the modal
-        const existing = cart.find(item => item.id === product.id);
-        if (existing) {
-          setCart(cart.map(item =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ));
-        } else {
-          setCart([
-            ...cart,
-            {
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              quantity: 1,
-            },
-          ]);
-        }
-
-        toast.success(`Added ${product.name} to cart`);
-      }}
-    >
-      +
-    </button>
-  </motion.div>
-);
-
   return (
     <div className="pos-container">
       <div className="side-menu">
@@ -165,12 +114,60 @@ const productCard = (product: Product) => (
 
         <div>
           {Object.keys(groupedProducts).sort().map(category => (
-            <motion.div key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div key={`category-${category}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <h3 className="category-title">{category}</h3>
               <div className="product-grid">
-                <AnimatePresence>
-                {groupedProducts[category].map(product => productCard(product))}
-               </AnimatePresence>
+                {groupedProducts[category].map(product => (
+                  <motion.div
+                    key={`product-${product.id}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    whileHover={{ scale: 1.02 }}
+                    className="product-card"
+                  >
+                    <div
+                      className="product-image-container"
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      {product.image ? (
+                        <img src={product.image} alt={product.name} />
+                      ) : (
+                        <span className="no-image">No Image</span>
+                      )}
+                    </div>
+                    <strong>{product.name}</strong>
+                    <span>₱{Number(product.price).toFixed(2)}</span>
+
+                    <button
+                      className="add-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const existing = cart.find(item => item.id === product.id);
+                        if (existing) {
+                          setCart(cart.map(item =>
+                            item.id === product.id
+                              ? { ...item, quantity: item.quantity + 1 }
+                              : item
+                          ));
+                        } else {
+                          setCart([
+                            ...cart,
+                            {
+                              id: product.id,
+                              name: product.name,
+                              price: product.price,
+                              quantity: 1,
+                            },
+                          ]);
+                        }
+                        toast.success(`Added ${product.name} to cart`);
+                      }}
+                    >
+                      +
+                    </button>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           ))}

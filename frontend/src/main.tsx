@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Toaster } from 'react-hot-toast'
 
 import { Navigate } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -21,6 +22,19 @@ import ResetPassword from './layouts/Resetpassword';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <Toaster
+      position="top-center"
+      toastOptions={{
+        duration: 3000,
+        style: {
+          background: '#333',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '10px',
+          maxWidth: '500px',
+        },
+      }}
+    />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
@@ -39,8 +53,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/sales" element={<Sales />} />
 
         <Route path="/forgot-password" element={<ResetPassword />} />
-
-
 
       </Routes>
     </BrowserRouter>
